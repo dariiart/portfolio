@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Preloader from "@/components/global/Preloader";
 import Navbar from "@/components/global/Navbar";
 import SmoothScroll from "@/components/global/SmoothScroll";
 import Footer from "@/components/global/Footer";
 import NextPageTransition from "@/components/global/NextPageTransition";
+import {
+  getPersonAndWebsiteJsonLd,
+  isPreview,
+  pageMetadata,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/lib/seo";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -13,13 +22,17 @@ const heebo = Heebo({
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
+  ...pageMetadata("/"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Dariiarts — Independent Art Director & Graphic Designer",
-    template: "%s | Dariiarts",
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Portfolio of Dariia Chervoniak, independent Art Director and Graphic Designer based in the UK, specializing in concept-led identities, art direction, and digital experiences.",
+  robots: { index: !isPreview, follow: true },
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -32,6 +45,11 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
+  verification: googleVerification
+    ? {
+        google: googleVerification,
+      }
+    : undefined,
 };
 
 export default function RootLayout({
@@ -39,19 +57,49 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = getPersonAndWebsiteJsonLd();
+
   return (
     <html lang="en" className={`${heebo.variable} h-full antialiased`}>
       <head>
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:rounded-md focus:text-sm font-medium"
+        >
+          Skip to content
+        </a>
         <SmoothScroll />
         <Preloader />
         <Navbar />
-        {children}
+        <div id="main-content" className="flex-1 flex flex-col">
+          {children}
+        </div>
         <NextPageTransition />
         <Footer />
+        {gaMeasurementId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaMeasurementId}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

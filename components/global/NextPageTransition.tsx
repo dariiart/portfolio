@@ -14,6 +14,10 @@ const pageSequence = [
 
 export default function NextPageTransition() {
   const pathname = usePathname();
+  return <PageTransition key={pathname} pathname={pathname} />;
+}
+
+function PageTransition({ pathname }: { pathname: string }) {
   const router = useRouter();
 
   const [progress, setProgress] = useState(0);
@@ -36,16 +40,15 @@ export default function NextPageTransition() {
       ? pageSequence[(currentPageIndex + 1) % pageSequence.length]
       : pageSequence[1]; // default to About if unmapped
 
-  // Reset progress when route changes
-  useEffect(() => {
-    progressRef.current = 0;
-    setProgress(0);
-    isNavigatingRef.current = false;
-  }, [pathname]);
-
   // Main scroll, wheel, touch & decay loop
   useEffect(() => {
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
+
+    const requestUpdate = () => {
+      if (animationFrameId === null) {
+        animationFrameId = requestAnimationFrame(updateLoop);
+      }
+    };
 
     const checkAtBottom = () => {
       const scrollY = window.scrollY;
@@ -66,6 +69,7 @@ export default function NextPageTransition() {
         // Calibrated: max 2 seconds of continuous scrolling down to fill (100% / 2s)
         const increment = Math.max(0.8, Math.min(2.5, Math.abs(e.deltaY) * 0.018));
         progressRef.current = Math.min(100, progressRef.current + increment);
+        requestUpdate();
       }
     };
 
@@ -85,10 +89,12 @@ export default function NextPageTransition() {
         const increment = Math.max(1.0, Math.min(3.0, deltaY * 0.025));
         progressRef.current = Math.min(100, progressRef.current + increment);
         touchStartY = touchCurrentY;
+        requestUpdate();
       }
     };
 
     const updateLoop = () => {
+      animationFrameId = null;
       const now = Date.now();
       const timeSinceLastScroll = now - lastScrollTimeRef.current;
 
@@ -106,20 +112,18 @@ export default function NextPageTransition() {
         setProgress(Math.round(progressRef.current));
       }
 
-      animationFrameId = requestAnimationFrame(updateLoop);
+      if (progressRef.current > 0 && !isNavigatingRef.current) requestUpdate();
     };
 
     window.addEventListener("wheel", handleWheel, { passive: true });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
-    animationFrameId = requestAnimationFrame(updateLoop);
-
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
     };
   }, [nextPage.href, router]);
 

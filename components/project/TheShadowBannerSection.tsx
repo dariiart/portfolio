@@ -1,21 +1,20 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 export default function TheShadowBannerSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const isInView = useInView(containerRef, { amount: 0.25 });
-  const [hasEntered, setHasEntered] = useState(false);
+  const hasEntered = useInView(containerRef, { amount: 0.25, once: true });
 
   useEffect(() => {
     if (isInView) {
-      setHasEntered(true);
       if (iframeRef.current?.contentWindow) {
         iframeRef.current.contentWindow.postMessage(
           JSON.stringify({ event: "command", func: "playVideo", args: "" }),
-          "*"
+          "https://www.youtube.com"
         );
       }
     }

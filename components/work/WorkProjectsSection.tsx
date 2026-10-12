@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { projects, type Project } from "@/lib/data/projects";
 
 function ProjectWorkCard({
@@ -15,7 +16,7 @@ function ProjectWorkCard({
   index: number;
   onSelect: (id: string, index: number) => void;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
   const isRevealed = useInView(cardRef, { once: true, margin: "-10%" });
   const isCardActive = useInView(cardRef, { amount: 0.35 });
@@ -44,9 +45,15 @@ function ProjectWorkCard({
   };
 
   return (
-    <div
+    <Link
+      href={`/work/${project.id}`}
       ref={cardRef}
-      onClick={() => onSelect(project.id, index)}
+      onClick={(event) => {
+        // Preserve native new-tab/window behavior and the existing transition.
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        onSelect(project.id, index);
+      }}
       className="relative w-full px-8 py-10 xs:px-10 xs:py-12 sm:p-10 md:p-14 mb-10 sm:mb-16 md:mb-24 flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-12 cursor-pointer group overflow-hidden sm:overflow-visible"
     >
       {/* Background: phone-drawing-new.png on mobile, video-bg.png on desktop */}
@@ -59,18 +66,18 @@ function ProjectWorkCard({
         {/* Mobile background frame: phone-drawing-new.png */}
         <Image
           src="/images/phone-drawing-new.png"
-          alt="Card background frame"
+          alt=""
           fill
+          sizes="(min-width: 640px) 1px, 100vw"
           className="block sm:hidden object-fill opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-          priority
         />
         {/* Desktop background frame: video-bg.png */}
         <Image
           src="/assets/video-bg.png"
-          alt="Card background frame"
+          alt=""
           fill
+          sizes="(min-width: 640px) 100vw, 1px"
           className="hidden sm:block object-fill opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-          priority
         />
       </motion.div>
 
@@ -102,6 +109,7 @@ function ProjectWorkCard({
                 src={project.image}
                 alt={project.title}
                 fill
+                sizes="(min-width: 768px) 35vw, 100vw"
                 className="object-cover"
               />
             </motion.div>
@@ -138,7 +146,7 @@ function ProjectWorkCard({
           </div>
         </motion.div>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -59,6 +59,7 @@ export default function HeroSection() {
         playsInline
         preload="auto"
         onEnded={handleVideoEnd}
+        aria-label="Dariia Chervoniak showcase reel"
         className="absolute inset-0 w-full h-full object-cover block"
       />
 

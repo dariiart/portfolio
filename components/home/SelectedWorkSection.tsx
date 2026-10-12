@@ -76,6 +76,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               src={project.image}
               alt={project.title}
               fill
+              sizes="(min-width: 1280px) 500px, (min-width: 768px) 40vw, 100vw"
               className="object-cover"
             />
           </motion.div>

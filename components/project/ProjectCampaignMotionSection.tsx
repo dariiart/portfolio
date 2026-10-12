@@ -106,7 +106,25 @@ export default function ProjectCampaignMotionSection() {
           </motion.div>
         </div>
 
-        {/* 4. Image museum.png */}
+        {/* 4. Image before-last-image.png */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full relative overflow-hidden bg-neutral-100"
+        >
+          <Image
+            src="/images/before-last-image.png"
+            alt="Voloshky Campaign Feature"
+            width={1920}
+            height={1080}
+            className="w-full h-auto object-cover block"
+            priority={false}
+          />
+        </motion.div>
+
+        {/* 5. Image museum.png */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

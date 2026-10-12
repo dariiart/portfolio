@@ -10,7 +10,6 @@ type ProjectScaledVideoSectionProps = {
 };
 
 export default function ProjectScaledVideoSection({
-  project,
   videoUrl,
 }: ProjectScaledVideoSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);

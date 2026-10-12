@@ -63,7 +63,7 @@ export default function TheShadowStorySection() {
           className="w-full relative overflow-hidden group rounded-xs"
         >
           <Image
-            src="/projects/the-shadow/script.png"
+            src="/projects/the-shadow/script.jpeg"
             alt="The Shadow Script & Storyboard Visual"
             width={1920}
             height={1080}

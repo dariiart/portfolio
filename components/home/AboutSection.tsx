@@ -8,19 +8,6 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
 const KNOW_MORE_LABEL = "Know more";
 
-const desktopLines = [
-  null,
-  "concept-led identities, art direction, and digital experiences",
-  "by uncovering rather than inventing.",
-];
-
-const mobileLines = [
-  null,
-  "+ Graphic Designer creating",
-  "concept-led identities, art direction,",
-  "and digital experiences by uncovering rather than inventing.",
-];
-
 const lineVariants = {
   hidden: { y: "110%", opacity: 1 },
   visible: (i: number) => ({

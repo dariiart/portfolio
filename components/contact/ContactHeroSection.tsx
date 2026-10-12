@@ -41,7 +41,7 @@ export default function ContactHeroSection() {
           className="w-full flex flex-col items-center text-center"
         >
           {/* Hand-drawn Script Heading Image */}
-          <div className="w-full overflow-hidden flex justify-center">
+          <h1 className="w-full overflow-hidden flex justify-center">
             <motion.div
               className="w-full flex justify-center"
               initial={{ y: "115%", opacity: 0 }}
@@ -65,7 +65,7 @@ export default function ContactHeroSection() {
                 priority
               />
             </motion.div>
-          </div>
+          </h1>
 
           {/* Subtitle directly below image */}
           <div className="w-full overflow-hidden text-center">

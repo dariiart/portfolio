@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -18,6 +18,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -28,6 +30,28 @@ export default function Navbar() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+      if (event.key !== "Tab") return;
+      const links = menuRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]");
+      const lastLink = links?.[links.length - 1];
+      if (event.shiftKey && document.activeElement === menuButtonRef.current) {
+        event.preventDefault();
+        lastLink?.focus();
+      } else if (!event.shiftKey && document.activeElement === lastLink) {
+        event.preventDefault();
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -67,6 +91,7 @@ export default function Navbar() {
                 <li key={label}>
                   <Link
                     href={href}
+                    aria-current={isActive ? "page" : undefined}
                     className={`nav-link-pill text-[15px] font-bold tracking-tight no-underline rounded-md px-2.5 py-1 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] inline-flex items-center justify-center ${
                       isActive ? "is-active" : ""
                     }`}
@@ -84,6 +109,9 @@ export default function Navbar() {
 
           {/* Hamburger — mobile only */}
           <button
+            ref={menuButtonRef}
+            aria-expanded={menuOpen}
+            aria-controls={menuOpen ? "mobile-navigation" : undefined}
             onClick={() => setMenuOpen((p) => !p)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             className="md:hidden flex items-center justify-center p-1 bg-transparent border-none cursor-pointer text-black"
@@ -128,6 +156,8 @@ export default function Navbar() {
         {menuOpen && (
           <motion.div
             key="mobile-menu"
+            ref={menuRef}
+            id="mobile-navigation"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -154,6 +184,7 @@ export default function Navbar() {
                     >
                       <Link
                         href={href}
+                        aria-current={isActive ? "page" : undefined}
                         onClick={closeMenu}
                         className={`nav-link-pill-mobile block py-1.5 px-3 rounded-lg text-[clamp(24px,6vw,36px)] font-extrabold tracking-tight no-underline text-left transition-all duration-300 ${
                           isActive ? "is-active" : ""

@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { projects } from "@/lib/data/projects";
 import MoorPerfumeHeroSection from "@/components/project/MoorPerfumeHeroSection";
 import MoorPerfumeGallerySection from "@/components/project/MoorPerfumeGallerySection";
 import MoorPerfumeVideoSection from "@/components/project/MoorPerfumeVideoSection";
 import MoorPerfumeScreenSection from "@/components/project/MoorPerfumeScreenSection";
-import { notFound } from "next/navigation";
+import { getProjectJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "MOOR PERFUME — Dariiarts",
-  description:
-    "A visual identity for The Moor Perfume, transforming a generic perfume shop into an authentic independent fragrance brand.",
-};
+const projectData = projects.find((p) => p.id === "moor-perfume");
+
+export const metadata: Metadata = pageMetadata(
+  "/work/moor-perfume",
+  projectData ? `${projectData.title} — Visual Identity & Art Direction` : "Moor Perfume",
+  projectData?.description,
+  projectData?.image
+);
 
 export default function MoorPerfumePage() {
   const project = projects.find((p) => p.id === "moor-perfume");
@@ -19,8 +23,14 @@ export default function MoorPerfumePage() {
     notFound();
   }
 
+  const jsonLd = getProjectJsonLd(project);
+
   return (
     <main className="min-h-screen bg-[#f8f7f5]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <MoorPerfumeHeroSection />
       <MoorPerfumeGallerySection />
       <MoorPerfumeVideoSection />
@@ -42,3 +52,4 @@ export default function MoorPerfumePage() {
     </main>
   );
 }
+

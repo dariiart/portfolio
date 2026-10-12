@@ -12,7 +12,8 @@ export default function WorkHeroSection() {
       typeof window !== "undefined" && Boolean(window.__preloaderDone);
 
     if (isDone) {
-      setStartAnim(true);
+      const frame = requestAnimationFrame(() => setStartAnim(true));
+      return () => cancelAnimationFrame(frame);
     } else {
       const handleDone = () => setStartAnim(true);
       window.addEventListener("preloader:done", handleDone, { once: true });

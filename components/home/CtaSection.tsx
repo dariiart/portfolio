@@ -25,8 +25,8 @@ export default function CtaSection() {
           src="/images/cta-bg.png"
           alt="CTA Background Frame"
           fill
+          sizes="(min-width: 1280px) 1152px, 100vw"
           className="object-fill pointer-events-none select-none"
-          priority
         />
 
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-3xl my-auto text-center px-2 sm:px-6">
@@ -45,7 +45,6 @@ export default function CtaSection() {
                   width={1280}
                   height={200}
                   className="w-full h-auto object-contain block mx-auto"
-                  priority
                 />
               </motion.div>
             </div>
@@ -70,23 +69,25 @@ export default function CtaSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 w-[75%] xs:w-[80%] max-w-[200px] xs:max-w-[230px] sm:max-w-md mx-auto"
           >
             <Link href={ctaData.primaryButton.href} className="w-full sm:w-auto">
-              <motion.button
+              <motion.span
+                style={{ display: "inline-block" }}
                 whileHover={{ scale: 1.03, y: -1 }}
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto bg-[#f4eaca] text-black px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-md sm:rounded-lg font-semibold text-[11px] xs:text-xs sm:text-[15px] tracking-[-0.01em] transition-all duration-300 cursor-pointer shadow-sm hover:bg-[#FFFDF5]"
               >
                 {ctaData.primaryButton.label}
-              </motion.button>
+              </motion.span>
             </Link>
 
             <Link href={ctaData.secondaryButton.href} className="w-full sm:w-auto">
-              <motion.button
+              <motion.span
+                style={{ display: "inline-block" }}
                 whileHover={{ scale: 1.03, y: -1 }}
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto bg-transparent border border-white/40 hover:border-white text-white px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-md sm:rounded-lg font-semibold text-[11px] xs:text-xs sm:text-[15px] tracking-[-0.01em] transition-all duration-300 cursor-pointer"
               >
                 {ctaData.secondaryButton.label}
-              </motion.button>
+              </motion.span>
             </Link>
           </motion.div>
         </div>

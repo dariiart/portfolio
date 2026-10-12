@@ -110,6 +110,7 @@ export default function AboutVideoSection() {
                 playsInline
                 loop
                 preload="auto"
+                aria-label="Dariia Chervoniak design practice video"
                 className="w-full h-full object-cover block"
               />
             </motion.div>
