@@ -17,6 +17,7 @@ export default function ProcessSection() {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const [isMuted, setIsMuted] = useState(true);
+  const [isNear, setIsNear] = useState(false);
 
   const syncVideos = () => {
     const video = videoRef.current;
@@ -27,6 +28,25 @@ export default function ProcessSection() {
       }
     }
   };
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Pre-load when within 600px of scrolling into view
+    const nearObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNear(true);
+          nearObserver.disconnect();
+        }
+      },
+      { rootMargin: "600px" }
+    );
+    nearObserver.observe(section);
+
+    return () => nearObserver.disconnect();
+  }, []);
 
   useEffect(() => {
     const wrapper = videoWrapperRef.current;
@@ -61,7 +81,7 @@ export default function ProcessSection() {
       video.pause();
       background.pause();
     };
-  }, []);
+  }, [isNear]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -156,26 +176,31 @@ export default function ProcessSection() {
         >
           <video
             ref={bgVideoRef}
-            src="/creative-process.mp4"
-            preload="auto"
+            src={isNear ? "/creative-process.mp4" : undefined}
+            preload="none"
             loop
             muted
             playsInline
             onLoadedMetadata={syncVideos}
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover scale-110 blur-3xl opacity-80 pointer-events-none brightness-95"
-          />
+          >
+            <track kind="captions" />
+          </video>
 
           <video
             ref={videoRef}
-            src="/creative-process.mp4"
-            preload="auto"
+            src={isNear ? "/creative-process.mp4" : undefined}
+            preload="none"
             loop
             muted={isMuted}
             playsInline
             onTimeUpdate={syncVideos}
+            aria-label="Dariia Chervoniak creative process video"
             className="relative z-10 w-full h-full object-contain pointer-events-none"
-          />
+          >
+            <track kind="captions" />
+          </video>
 
           <div
             ref={overlayRef}

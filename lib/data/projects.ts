@@ -59,9 +59,9 @@ export const projects: Project[] = [
     year: "2024",
     client: "Voloshky Ensemble",
     services: ["Brand Strategy", "Visual Identity", "Art Direction", "Print & Packaging"],
-    image: "/assets/project-1.png",
+    image: "/images/project-1.png",
     gallery: [
-      "/assets/project-1.png",
+      "/images/project-1.png",
       "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=1200&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
     ],

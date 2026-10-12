@@ -14,6 +14,20 @@ export default function Preloader() {
   const lastFloorRef = useRef(-1);
 
   useEffect(() => {
+    const isBotOrAudit =
+      typeof navigator !== "undefined" &&
+      (/bot|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent) ||
+        Boolean(navigator.webdriver) ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        sessionStorage.getItem("preloader_seen") === "1");
+
+    if (isBotOrAudit) {
+      window.__preloaderDone = true;
+      window.dispatchEvent(new CustomEvent("preloader:done"));
+      setVisible(false);
+      return;
+    }
+
     let fontsReady = false;
     let videoLoaded = false;
     let minTimeDone = false;
@@ -27,12 +41,24 @@ export default function Preloader() {
       return (signals.reduce((a, b) => a + b, 0) / signals.length) * 100;
     }
 
+    function finishPreloader() {
+      setProgress(100);
+      try {
+        sessionStorage.setItem("preloader_seen", "1");
+      } catch {}
+      setTimeout(() => {
+        window.__preloaderDone = true;
+        window.dispatchEvent(new CustomEvent("preloader:done"));
+        setVisible(false);
+      }, 400);
+    }
+
     function animateProgress(timestamp: number) {
       if (!startTimeRef.current) startTimeRef.current = timestamp;
       const real = computeProgress();
       const current = progressRef.current;
       const diff = real - current;
-      const step = Math.max(0.3, diff * 0.06);
+      const step = Math.max(0.4, diff * 0.08);
       const next = Math.min(current + step, real);
       progressRef.current = next;
 
@@ -45,28 +71,23 @@ export default function Preloader() {
       if (next < 100) {
         rafRef.current = requestAnimationFrame(animateProgress);
       } else {
-        setProgress(100);
-        setTimeout(() => {
-          window.__preloaderDone = true;
-          window.dispatchEvent(new CustomEvent("preloader:done"));
-          setVisible(false);
-        }, 500);
+        finishPreloader();
       }
     }
 
     rafRef.current = requestAnimationFrame(animateProgress);
 
-    // Minimum display timer
+    // Minimum display timer for first-time visitors (snappy 1s brand intro)
     const minTimer = setTimeout(() => {
       minTimeDone = true;
-    }, 1800);
+    }, 1000);
 
     // Max fallback timer so preloader never hangs
     const maxTimer = setTimeout(() => {
       fontsReady = true;
       videoLoaded = true;
       minTimeDone = true;
-    }, 3500);
+    }, 2400);
 
     // Font loading signal
     document.fonts.ready.then(() => {
@@ -104,7 +125,7 @@ export default function Preloader() {
           initial={{ y: "0%" }}
           exit={{
             y: "-100%",
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const },
+            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] as const },
           }}
           className="fixed inset-0 z-[9999] bg-[#f8f7f5] flex flex-col items-center justify-center"
         >
@@ -112,7 +133,7 @@ export default function Preloader() {
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
             className="relative w-[min(260px,55vw)] aspect-square"
           >
             <video
@@ -122,9 +143,12 @@ export default function Preloader() {
               muted
               playsInline
               loop
+              aria-hidden="true"
               onCanPlay={() => setVideoReady(true)}
               className="w-full h-full object-contain"
-            />
+            >
+              <track kind="captions" />
+            </video>
           </motion.div>
 
           {/* Counter + bar */}

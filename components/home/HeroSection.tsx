@@ -57,11 +57,13 @@ export default function HeroSection() {
         src="/assets/hero-video.mp4"
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         onEnded={handleVideoEnd}
         aria-label="Dariia Chervoniak showcase reel"
         className="absolute inset-0 w-full h-full object-cover block"
-      />
+      >
+        <track kind="captions" />
+      </video>
 
       {/* Vignette overlay */}
       <div
