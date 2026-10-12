@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://dariiart.com";
+export const SITE_URL = "https://www.dariiart.com";
 export const SITE_NAME = "Dariiarts";
 export const SITE_TITLE = "Dariiarts — Independent Art Director & Graphic Designer";
 export const SITE_DESCRIPTION =
