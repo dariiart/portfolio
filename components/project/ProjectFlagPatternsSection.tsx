@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import { motion } from "framer-motion";
 
 type PatternCardProps = {
@@ -65,11 +65,12 @@ export default function ProjectFlagPatternsSection() {
             >
               {/* Image Frame */}
               <div className="w-full relative aspect-square bg-white flex items-center justify-center overflow-hidden">
-                <Image
+                <SkeletonImage
                   src={item.imageSrc}
                   alt={`${item.title} pattern design`}
                   width={800}
                   height={800}
+                  wrapperClassName="h-full"
                   className="w-full h-full object-cover"
                 />
               </div>

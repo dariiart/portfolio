@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 export default function MoorPerfumeConceptLayout() {
   return (
     <div className="w-full mb-10 sm:mb-14 md:mb-16 grid grid-cols-1 md:grid-cols-[0.85fr_1fr] gap-3 items-stretch">
       <div className="relative aspect-[477/650] overflow-hidden">
-        <Image
+        <SkeletonImage
           src="/projects/moor-perfume/pic-1.jpg"
           alt="Moor Perfume concept development moodboard"
           fill

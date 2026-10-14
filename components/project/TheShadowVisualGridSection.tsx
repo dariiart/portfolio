@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 export default function TheShadowVisualGridSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -30,7 +30,7 @@ export default function TheShadowVisualGridSection() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.12 }}
               className="w-full relative overflow-hidden group"
             >
-              <Image
+              <SkeletonImage
                 src={img.src}
                 alt={img.alt}
                 width={1000}

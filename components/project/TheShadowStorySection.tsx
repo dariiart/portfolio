@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 export default function TheShadowStorySection() {
   const topTextRef = useRef<HTMLDivElement>(null);
@@ -62,7 +62,7 @@ export default function TheShadowStorySection() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden group rounded-xs"
         >
-          <Image
+          <SkeletonImage
             src="/projects/the-shadow/script.jpeg"
             alt="The Shadow Script & Storyboard Visual"
             width={1920}

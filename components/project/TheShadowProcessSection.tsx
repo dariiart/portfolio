@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 export default function TheShadowProcessSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ export default function TheShadowProcessSection() {
           className="w-full flex justify-center items-center"
         >
           <div className="w-full max-w-4xl relative overflow-hidden group">
-            <Image
+            <SkeletonImage
               src="/projects/the-shadow/poster.png"
               alt="The Shadow Poster"
               width={1400}
@@ -73,7 +73,7 @@ export default function TheShadowProcessSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           className="w-full relative overflow-hidden group"
         >
-          <Image
+          <SkeletonImage
             src="/projects/the-shadow/shooting.jpg"
             alt="Shooting The Shadow"
             width={1920}
@@ -159,7 +159,7 @@ export default function TheShadowProcessSection() {
         >
           {/* Left: daria.jpg */}
           <div className="w-full relative overflow-hidden group">
-            <Image
+            <SkeletonImage
               src="/projects/the-shadow/daria.jpg"
               alt="Dariia Chervoniak on set of The Shadow"
               width={1200}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import { motion } from "framer-motion";
 
 export default function MoorPerfumeGallerySection() {
@@ -26,7 +26,7 @@ export default function MoorPerfumeGallerySection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden bg-neutral-100 shadow-xs group"
         >
-          <Image
+          <SkeletonImage
             src="/projects/moor-perfume/main-image.png"
             alt="Moor Perfume Main Visual"
             width={1920}
@@ -44,7 +44,7 @@ export default function MoorPerfumeGallerySection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden bg-neutral-100 shadow-xs group"
         >
-          <Image
+          <SkeletonImage
             src="/projects/moor-perfume/logo-2.png"
             alt="Moor Perfume Logo Variant"
             width={1920}
@@ -85,11 +85,12 @@ export default function MoorPerfumeGallerySection() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="w-full relative overflow-hidden bg-neutral-100 shadow-xs group flex items-center justify-center"
           >
-            <Image
+            <SkeletonImage
               src="/projects/moor-perfume/logo-3.png"
               alt="Moor Perfume Logo 3"
               width={1200}
               height={900}
+              wrapperClassName="h-full"
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.01]"
             />
           </motion.div>

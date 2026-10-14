@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import voloshkyConcept from "@/public/images/Voloshky.jpg";
 
 export default function VoloshkyConceptLayout() {
   return (
     <div className="w-full mb-10 sm:mb-14 md:mb-16">
-      <Image
+      <SkeletonImage
         src={voloshkyConcept}
         alt="Voloshky concept development"
         sizes="(min-width: 1280px) 1160px, 100vw"

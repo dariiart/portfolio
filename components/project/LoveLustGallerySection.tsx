@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 export default function LoveLustGallerySection() {
   return (
@@ -16,7 +16,7 @@ export default function LoveLustGallerySection() {
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className="w-full md:w-[70%] mr-auto overflow-hidden group shadow-2xs"
         >
-          <Image
+          <SkeletonImage
             src="/projects/love-lust/1.JPG"
             alt="Love, Lust and Violence — Still 1"
             width={1600}
@@ -34,7 +34,7 @@ export default function LoveLustGallerySection() {
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className="w-full md:w-[70%] ml-auto overflow-hidden group shadow-2xs"
         >
-          <Image
+          <SkeletonImage
             src="/projects/love-lust/2.JPG"
             alt="Love, Lust and Violence — Still 2"
             width={1600}
@@ -52,7 +52,7 @@ export default function LoveLustGallerySection() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="w-full overflow-hidden group"
           >
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/3.JPG"
               alt="Love, Lust and Violence — Still 3"
               width={1400}
@@ -67,7 +67,7 @@ export default function LoveLustGallerySection() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="w-full overflow-hidden group"
           >
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/4.JPG"
               alt="Love, Lust and Violence — Still 4"
               width={1400}
@@ -85,7 +85,7 @@ export default function LoveLustGallerySection() {
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className="w-full md:w-[70%] ml-auto overflow-hidden group shadow-2xs"
         >
-          <Image
+          <SkeletonImage
             src="/projects/love-lust/5.JPG"
             alt="Love, Lust and Violence — Still 5"
             width={1600}
@@ -103,7 +103,7 @@ export default function LoveLustGallerySection() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="w-full overflow-hidden group shadow-2xs"
           >
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/6.JPG"
               alt="Love, Lust and Violence — Still 6"
               width={1400}
@@ -118,7 +118,7 @@ export default function LoveLustGallerySection() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="w-full overflow-hidden group shadow-2xs"
           >
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/7.JPG"
               alt="Love, Lust and Violence — Still 7"
               width={1400}
@@ -137,7 +137,7 @@ export default function LoveLustGallerySection() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="w-full overflow-hidden group shadow-2xs"
           >
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/8.jpg"
               alt="Love, Lust and Violence — Still 8"
               width={1400}
@@ -152,7 +152,7 @@ export default function LoveLustGallerySection() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="w-full overflow-hidden group shadow-2xs"
           >
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/9.JPG"
               alt="Love, Lust and Violence — Still 9"
               width={1400}
@@ -170,7 +170,7 @@ export default function LoveLustGallerySection() {
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className="w-full md:w-[70%] mr-auto overflow-hidden group shadow-2xs"
         >
-          <Image
+          <SkeletonImage
             src="/projects/love-lust/10.JPG"
             alt="Love, Lust and Violence — Still 10"
             width={1600}
@@ -223,7 +223,7 @@ export default function LoveLustGallerySection() {
 
           {/* Right: 11.JPG Image */}
           <div className="md:col-span-7 w-full relative overflow-hidden group shadow-2xs aspect-[4/3] bg-neutral-100">
-            <Image
+            <SkeletonImage
               src="/projects/love-lust/11.JPG"
               alt="Love, Lust and Violence — Team & Cast"
               fill

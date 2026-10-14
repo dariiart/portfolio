@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import { motion } from "framer-motion";
 
 export default function MoorPerfumeVideoSection() {
@@ -34,7 +34,7 @@ export default function MoorPerfumeVideoSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden bg-neutral-100 shadow-xs group"
         >
-          <Image
+          <SkeletonImage
             src="/projects/moor-perfume/board.png"
             alt="Moor Perfume Board Visual"
             width={1920}

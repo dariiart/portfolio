@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 const dimensions: Record<number, [number, number]> = {
   1: [1298, 2673], 2: [2954, 2667], 3: [1998, 1324],
@@ -12,7 +12,7 @@ const dimensions: Record<number, [number, number]> = {
 function ConceptImage({ number }: { number: number }) {
   const [width, height] = dimensions[number];
   return (
-    <Image
+    <SkeletonImage
       src={`/projects/the-shadow/${number}.png`}
       alt={`The Shadow concept development study ${number}`}
       width={width}

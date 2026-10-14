@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import { motion } from "framer-motion";
 import type { Project } from "@/lib/data/projects";
 
@@ -29,7 +29,7 @@ export default function ProjectDualImagesSection({
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden  bg-neutral-100 shadow-sm group"
         >
-          <Image
+          <SkeletonImage
             src={leftSrc}
             alt="Project Feature 1"
             width={1200}
@@ -46,7 +46,7 @@ export default function ProjectDualImagesSection({
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
           className="w-full relative overflow-hidden  bg-neutral-100 shadow-sm group"
         >
-          <Image
+          <SkeletonImage
             src={rightSrc}
             alt="Project Feature 2"
             width={1200}

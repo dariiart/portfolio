@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -114,7 +114,7 @@ export default function ProjectCampaignMotionSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden bg-neutral-100"
         >
-          <Image
+          <SkeletonImage
             src="/images/before-last-image.png"
             alt="Voloshky Campaign Feature"
             width={1920}
@@ -132,7 +132,7 @@ export default function ProjectCampaignMotionSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full relative overflow-hidden bg-neutral-100"
         >
-          <Image
+          <SkeletonImage
             src="/images/museum.png"
             alt="Voloshky Museum Display"
             width={1920}

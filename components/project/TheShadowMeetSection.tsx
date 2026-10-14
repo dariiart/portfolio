@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 
 export default function TheShadowMeetSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export default function TheShadowMeetSection() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="w-full relative overflow-hidden group"
           >
-            <Image
+            <SkeletonImage
               src="/projects/the-shadow/meet-1.jpg"
               alt="Meet The Shadow 1"
               width={1200}
@@ -51,7 +51,7 @@ export default function TheShadowMeetSection() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
             className="w-full md:w-[85%] relative overflow-hidden group"
           >
-            <Image
+            <SkeletonImage
               src="/projects/the-shadow/meet-2.jpg"
               alt="Meet The Shadow 2"
               width={1200}

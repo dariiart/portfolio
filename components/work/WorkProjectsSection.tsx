@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { projects, type Project } from "@/lib/data/projects";
 
@@ -105,7 +106,7 @@ function ProjectWorkCard({
               style={{ originX, originY }}
               className="w-full h-full relative"
             >
-              <Image
+              <SkeletonImage
                 src={project.image}
                 alt={project.title}
                 fill

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
+import SkeletonImage from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { projects, type Project } from "@/lib/data/projects";
@@ -72,7 +73,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             style={{ originX, originY }}
             className="w-full h-full relative"
           >
-            <Image
+            <SkeletonImage
               src={project.image}
               alt={project.title}
               fill
